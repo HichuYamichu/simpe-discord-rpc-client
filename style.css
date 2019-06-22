@@ -1,7 +1,7 @@
 h1 {
   text-align: center;
   margin: auto;
-  padding-top: 1em;
+  padding-top: 0.5em;
   color: var(--colorPrimary400);
 }
 
@@ -50,7 +50,6 @@ body {
   text-align: center;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
   margin: 0px;
   height: 100%;
   cursor: default;

@@ -1,5 +1,5 @@
 const { webFrame } = require('electron');
-webFrame.setZoomLevelLimits(1, 1);
+// webFrame.setZoomLevelLimits(1, 1);
 
 const storage = require('electron-json-storage');
 
