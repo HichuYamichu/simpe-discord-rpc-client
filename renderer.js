@@ -1,6 +1,3 @@
-const { webFrame } = require('electron');
-// webFrame.setZoomLevelLimits(1, 1);
-
 const storage = require('electron-json-storage');
 
 const details = document.getElementById('details');
@@ -13,7 +10,7 @@ const clientID = document.getElementById('client-id')
 
 const saveBTN = document.getElementById('saveBTN');
 
-storage.get('cache', function(error, cache) {
+storage.get('cache', (error, cache) => {
   if (error) throw error;
 
   if (cache.details) details.value = cache.details;
@@ -37,7 +34,7 @@ saveBTN.addEventListener('click', () => {
       smallImageText: smallImageText.value,
       clientID: clientID.value
     },
-    function(error) {
+    error => {
       if (error) throw error;
     }
   );

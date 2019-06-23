@@ -79,35 +79,20 @@ function start() {
 
     const activity = { instance: false, startTimestamp };
 
-    const details = await mainWindow.webContents.executeJavaScript(
-      'document.getElementById("details").value'
-    );
-    if (details) activity.details = details;
-
-    const state = await mainWindow.webContents.executeJavaScript(
-      'document.getElementById("state").value'
-    );
-    if (state) activity.state = state;
-
-    largeImageKey = await mainWindow.webContents.executeJavaScript(
-      'document.getElementById("largeImageKey").value'
-    );
-    if (largeImageKey) activity.largeImageKey = largeImageKey;
-
-    const largeImageText = await mainWindow.webContents.executeJavaScript(
-      'document.getElementById("largeImageText").value'
-    );
-    if (largeImageText) activity.largeImageText = largeImageText;
-
-    const smallImageKey = await mainWindow.webContents.executeJavaScript(
-      'document.getElementById("smallImageKey").value'
-    );
-    if (smallImageKey) activity.smallImageKey = smallImageKey;
-
-    const smallImageText = await mainWindow.webContents.executeJavaScript(
-      'document.getElementById("smallImageText").value'
-    );
-    if (smallImageText) activity.smallImageText = smallImageText;
+    const fields = [
+      'details',
+      'state',
+      'largeImageKey',
+      'largeImageText',
+      'smallImageKey',
+      'smallImageText'
+    ];
+    for (const field of fields) {
+      const fieldValue = await mainWindow.webContents.executeJavaScript(
+        `document.getElementById("${field}").value`
+      );
+      if (fieldValue) activity[field] = fieldValue;
+    }
 
     rpc.setActivity(activity);
   }
