@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Simple RPC Client</title>
+  <link rel=stylesheet href=style.css />
+</head>
+
+<body>
+  <main>
+    <a class="helpBTN" href="#popup1"><span>help</span></a>
+    <h1>SET YOUR PRESENCE</h1>
+
+    <div id="popup1" class="overlay">
+      <div class="popup">
+        <h2>What do I do?</h2>
+        <a class="close" href="#">&times;</a>
+        <div class="content">
+          <ol class="list">
+            <li>
+              go to <a href="https://discordapp.com/developers/applications/">this site</a> and create your app (it's
+              simple enough you should be fine)
+            </li>
+            <li>
+              go to Rich Presence tab and add images you want your RPC to display
+            </li>
+            <li>
+              copy your app ID from General Information tab
+            </li>
+            <li>
+              fill your info as you wish (NONE of the fields are required except client id)
+            </li>
+            <li>
+              your RPC should start working within 15 seconds after you've pasted client id
+            </li>
+            <li>
+              you can save your info if you don't want to type it every time you start RPC
+            </li>
+          </ol>
+        </div>
+      </div>
+    </div>
+
+    <div class="Input" style="margin-top: 1rem;">
+      <input type="text" id="details" class="Input-text" placeholder="Details">
+    </div>
+
+    <div class="Input">
+      <input type="text" id="state" class="Input-text" placeholder="State">
+    </div>
+
+    <div class="Input">
+      <input type="text" id="largeImageKey" class="Input-text" placeholder="Large image name">
+    </div>
+
+    <div class="Input">
+      <input type="text" id="largeImageText" class="Input-text" placeholder="Large image text">
+    </div>
+
+    <div class="Input">
+      <input type="text" id="smallImageKey" class="Input-text" placeholder="Small image name">
+    </div>
+
+    <div class="Input">
+      <input type="text" id="smallImageText" class="Input-text" placeholder="Small image text">
+    </div>
+
+    <div class="Input">
+      <input type="text" id="client-id" class="Input-text" placeholder="Client id">
+    </div>
+    <button class="btn" type="button" id="startBTN"><span>start</span></button>
+    </div>
+
+
+    <div class="sliderWrapper" onclick="closeDrawer()">
+    </div>
+
+    <div id="drawer" class="drawer">
+      <form>
+        <input type="text" id="save-name" class="Input-text drawer-input" placeholder="Save name">
+        <button class="btn" type="button" id="saveBTN"><span>ADD</span></button>
+      </form>
+      <div id="saves"></div>
+    </div>
+
+
+    <span class="drawerOpener" onclick="openDrawer()"><img src="../assets/baseline_keyboard_arrow_up_white_18dp.png"
+        alt=""></span>
+  </main>
+  <script src=renderer.js></script>
+</body>
+
+</html>
