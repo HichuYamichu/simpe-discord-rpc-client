@@ -1,5 +1,3 @@
-'use strict';
-
 const storage = require('electron-json-storage');
 const { shell } = require('electron');
 const { ipcRenderer } = require('electron');
@@ -28,7 +26,35 @@ startBTN.addEventListener('click', () => {
 
 let cache = {};
 
-storage.getAll(function(error, data) {
+function getSave(saveName) {
+  storage.get(saveName, (error, cache) => {
+    if (error) throw error;
+
+    if (cache.details) details.value = cache.details;
+    if (cache.state) state.value = cache.state;
+    if (cache.largeImageKey) largeImageKey.value = cache.largeImageKey;
+    if (cache.largeImageText) largeImageText.value = cache.largeImageText;
+    if (cache.smallImageKey) smallImageKey.value = cache.smallImageKey;
+    if (cache.smallImageText) smallImageText.value = cache.smallImageText;
+    if (cache.clientID) clientID.value = cache.clientID;
+  });
+}
+
+function removeSave(saveNameToRemove) {
+  delete cache[saveNameToRemove];
+  storage.remove(saveNameToRemove, error => {
+    if (error) throw error;
+  });
+  const savesStore = document.getElementById('saves');
+  const saves = savesStore.children;
+  for (const save of saves) {
+    if (save.firstChild.innerHTML === saveNameToRemove) {
+      savesStore.removeChild(save);
+    }
+  }
+}
+
+storage.getAll((error, data) => {
   if (error) throw error;
   cache = data;
   console.log(data);
@@ -51,34 +77,6 @@ storage.getAll(function(error, data) {
     list.appendChild(div);
   }
 });
-
-function getSave(saveName) {
-  storage.get(saveName, (error, cache) => {
-    if (error) throw error;
-
-    if (cache.details) details.value = cache.details;
-    if (cache.state) state.value = cache.state;
-    if (cache.largeImageKey) largeImageKey.value = cache.largeImageKey;
-    if (cache.largeImageText) largeImageText.value = cache.largeImageText;
-    if (cache.smallImageKey) smallImageKey.value = cache.smallImageKey;
-    if (cache.smallImageText) smallImageText.value = cache.smallImageText;
-    if (cache.clientID) clientID.value = cache.clientID;
-  });
-}
-
-function removeSave(saveNameToRemove) {
-  delete cache[saveNameToRemove];
-  storage.remove(saveNameToRemove, function(error) {
-    if (error) throw error;
-  });
-  const savesStore = document.getElementById('saves');
-  const saves = savesStore.children;
-  for (const save of saves) {
-    if (save.firstChild.innerHTML === saveNameToRemove) {
-      savesStore.removeChild(save);
-    }
-  }
-}
 
 saveBTN.addEventListener('click', () => {
   const saveNameInput = document.getElementById('save-name');
@@ -116,7 +114,7 @@ saveBTN.addEventListener('click', () => {
 });
 
 function openDrawer() {
-  document.getElementById('drawer').style.height = '80%';
+  document.getElementById('drawer').style.height = '75%';
   const overlay = document.querySelector('.sliderWrapper');
   overlay.style.visibility = 'visible';
   overlay.style.opacity = '1';

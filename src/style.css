@@ -243,15 +243,18 @@ a {
   border-radius: 5px;
   width: 100%;
 
-  left: 50%;
-  transform: translateX(-50%);
-
   height: 0;
   position: fixed;
   z-index: 2;
-  bottom: -20%;
-  overflow-x: hidden;
+  bottom: -15%;
+  overflow: scroll;
+
   transition: 0.5s;
+}
+
+.drawer::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
 }
 
 .drawer a {

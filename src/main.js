@@ -1,5 +1,3 @@
-'use strict';
-
 const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
 const url = require('url');
@@ -8,6 +6,31 @@ const DiscordRPC = require('discord-rpc');
 let mainWindow;
 let startTimestamp;
 let rpc;
+
+async function setActivity() {
+  if (!rpc || !mainWindow) {
+    return;
+  }
+
+  const activity = { instance: false, startTimestamp };
+
+  const fields = [
+    'details',
+    'state',
+    'largeImageKey',
+    'largeImageText',
+    'smallImageKey',
+    'smallImageText'
+  ];
+  for (const field of fields) {
+    const fieldValue = await mainWindow.webContents.executeJavaScript(
+      `document.getElementById("${field}").value`
+    );
+    if (fieldValue) activity[field] = fieldValue;
+  }
+
+  rpc.setActivity(activity);
+}
 
 function createWindow() {
   mainWindow = new BrowserWindow({
@@ -66,28 +89,3 @@ app.on('activate', () => {
     createWindow();
   }
 });
-
-async function setActivity() {
-  if (!rpc || !mainWindow) {
-    return;
-  }
-
-  const activity = { instance: false, startTimestamp };
-
-  const fields = [
-    'details',
-    'state',
-    'largeImageKey',
-    'largeImageText',
-    'smallImageKey',
-    'smallImageText'
-  ];
-  for (const field of fields) {
-    const fieldValue = await mainWindow.webContents.executeJavaScript(
-      `document.getElementById("${field}").value`
-    );
-    if (fieldValue) activity[field] = fieldValue;
-  }
-
-  rpc.setActivity(activity);
-}

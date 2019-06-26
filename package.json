@@ -1,6 +1,6 @@
 {
   "name": "simple-RPC",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "A simple RPC client for Discord",
   "license": "MIT",
   "main": "src/main.js",
@@ -17,6 +17,9 @@
     "electron": "^1.7.9",
     "electron-builder": "^20.44.4",
     "webpack": "^4.13.0",
-    "webpack-cli": "^3.0.8"
+    "webpack-cli": "^3.0.8",
+    "eslint": "^6.0.1",
+    "eslint-config-aqua": "^6.0.0",
+    "babel-eslint": "^10.0.2"
   }
 }
